@@ -38,95 +38,88 @@ app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
+
 //sign up
 app.post("/signup", async (req, res) => {
-    try {
-      const { email } = req.body;
-  
-      // Check if the email already exists
-      const existingUser = await userModel.findOne({ email });
-  
-      if (existingUser) {
-        return res.send({ message: "Email is already registered", alert: false });
-      }
-  
-      // Create a new user if the email doesn't exist
-      const newUser = new userModel(req.body);
-      await newUser.save();
-  
-      res.send({ message: "Successfully signed up", alert: true });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({ message: "Error during sign up", alert: false });
-    }
-  });
-  
-//api login
-app.post("/login", async (req, res) => {
-    try {
-      const { email } = req.body;
-  
-      // Find user by email
-      const user = await userModel.findOne({ email });
-  
-      if (user) {
-        const dataSend = {
-          _id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          image: user.image,
-        };
-  
-        console.log(dataSend);
-        res.send({
-          message: "Login is successful",
-          alert: true,
-          data: dataSend,
-        });
-      } else {
-        res.send({
-          message: "Email is not available, please sign up",
-          alert: false,
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({
-        message: "Error during login",
-        alert: false,
-      });
-    }
-  });
-  
+  try {
+    const { email } = req.body;
+    const result = await userModel.findOne({ email: email }).exec();
 
-//product section
-
-const schemaProduct = mongoose.Schema({
-  name: String,
-  category:String,
-  image: String,
-  price: String,
-  description: String,
+    console.log(result);
+    res.status(200).json(result); // Adjust the response as needed
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error during signup" });
+  }
 });
-const productModel = mongoose.model("product",schemaProduct)
+
+  
+// //api login
+// app.post("/login", async (req, res) => {
+//     try {
+//       const { email } = req.body;
+  
+//       // Find user by email
+//       const user = await userModel.findOne({ email });
+  
+//       if (user) {
+//         const dataSend = {
+//           _id: user._id,
+//           firstName: user.firstName,
+//           lastName: user.lastName,
+//           email: user.email,
+//           image: user.image,
+//         };
+  
+//         console.log(dataSend);
+//         res.send({
+//           message: "Login is successful",
+//           alert: true,
+//           data: dataSend,
+//         });
+//       } else {
+//         res.send({
+//           message: "Email is not available, please sign up",
+//           alert: false,
+//         });
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).send({
+//         message: "Error during login",
+//         alert: false,
+//       });
+//     }
+//   });
+  
+
+// //product section
+
+// const schemaProduct = mongoose.Schema({
+//   name: String,
+//   category:String,
+//   image: String,
+//   price: String,
+//   description: String,
+// });
+// const productModel = mongoose.model("product",schemaProduct)
 
 
 
-//save product in data 
-//api
-app.post("/uploadProduct",async(req,res)=>{
-    // console.log(req.body)
-    const data = await productModel(req.body)
-    const datasave = await data.save()
-    res.send({message : "Upload successfully"})
-})
+// //save product in data 
+// //api
+// app.post("/uploadProduct",async(req,res)=>{
+//     // console.log(req.body)
+//     const data = await productModel(req.body)
+//     const datasave = await data.save()
+//     res.send({message : "Upload successfully"})
+// })
 
-//
-app.get("/product",async(req,res)=>{
-  const data = await productModel.find({})
-  res.send(JSON.stringify(data))
-})
+// //
+// app.get("/product",async(req,res)=>{
+//   const data = await productModel.find({})
+//   res.send(JSON.stringify(data))
+// })
  
 // /*****payment getWay */
 // console.log(process.env.STRIPE_SECRET_KEY)

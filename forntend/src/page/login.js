@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { BsEmojiSmileUpsideDown } from "react-icons/bs";
 import {toast} from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginRedux } from "../redux/userSlice";
+//import { useDispatch, useSelector } from "react-redux";
+//import { loginRedux } from "../redux/userSlice";
 
 
 const Login = () => {
@@ -16,10 +16,10 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate()  
-  const userData = useSelector(state => state)
+ // const userData = useSelector(state => state)
 
 
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
 
 
 
@@ -37,37 +37,50 @@ const Login = () => {
         }
     })
   }
-
-  const handleSubmit = async(e)=>{
-    e.preventDefault()
-    const {email,password} = data
-    if(email && password ){
-      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/login`,{
-        method : "POST",
-        headers : {
-          "content-type" : "application/json"
-        },
-        body : JSON.stringify(data)
-      })
-
-      const dataRes = await fetchData.json()
-      console.log(dataRes)
-      
-      toast(dataRes.message)
-      
-      if(dataRes.alert){
-        dispatch(loginRedux(dataRes))
-        setTimeout(() => {
-          navigate("/")
-        }, 1000);
-      }
-
-      console.log(userData)
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const { email, password } = data;
+    if ( email && password ) {
+      alert("successful")
     }
-    else{
+      else{
         alert("Please Enter required fields")
+      }  
+      
+        
+
     }
-  }
+
+  // const handleSubmit = async(e)=>{
+  //   e.preventDefault()
+  //   const {email,password} = data
+  //   if(email && password ){
+  //     const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/login`,{
+  //       method : "POST",
+  //       headers : {
+  //         "content-type" : "application/json"
+  //       },
+  //       body : JSON.stringify(data)
+  //     })
+
+  //     const dataRes = await fetchData.json()
+  //     console.log(dataRes)
+      
+  //     toast(dataRes.message)
+      
+  //     if(dataRes.alert){
+  //       dispatch(loginRedux(dataRes))
+  //       setTimeout(() => {
+  //         navigate("/")
+  //       }, 1000);
+  //     }
+
+  //     console.log(userData)
+  //   }
+  //   else{
+  //       alert("Please Enter required fields")
+  //   }
+  // }
 
   return (
     <div className="p-3 md:p-4">
