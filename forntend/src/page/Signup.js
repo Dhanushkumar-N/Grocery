@@ -66,12 +66,12 @@ console.log(process.env.REACT_APP_SERVER_DOMAIN)
           const dataRes = await fetchData.json()
           console.log(dataRes)
           
-         alert("Succesful")
+        
         // alert(dataRes.message);
-        //toast(dataRes.message)
-        //if(dataRes.alert){
+        toast(dataRes.message)
+        if(dataRes.alert){
           navigate("/login");
-      //  }
+        }
        
       } else {
         alert("password and confirm password not equal");
