@@ -16,8 +16,8 @@ import Contact from "./page/Contact";
 import Login from "./page/login";
 import Newproduct from "./page/Newproduct";
 import Signup from "./page/Signup";
-//import { store } from "./redux/index";
-//import { Provider } from "react-redux";
+import { store } from "./redux/index";
+import { Provider } from "react-redux";
 //import Cart from "./page/Cart";
 // import Success from "./page/Success";
 // import Cancel from "./page/Cancel";
@@ -42,9 +42,9 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
- // <Provider store={store}>
+  <Provider store={store}>
     <RouterProvider router={router} />
-//  </Provider>
+ </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
