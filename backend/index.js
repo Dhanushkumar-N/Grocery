@@ -40,7 +40,6 @@ app.get("/", (req, res) => {
 
 //sign up
 
-
 app.post("/signup", async (req, res) => {
   try {
     const { email } = req.body;
