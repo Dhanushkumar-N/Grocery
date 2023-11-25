@@ -1,9 +1,9 @@
 {
     "version": 2,
-    "builds": [{ "src": "build", "use": "@vercel/static-build" }],
-    "routes": [{ "handle": "filesystem" }, { "src": "/(.*)", "dest": "/build/$1" }],
+    "builds": [{ "src": "index.js", "use": "@vercel/node" }],
+    "routes": [{ "src": "/api/(.*)", "dest": "index.js" }],
     "env": {
-        "MONGODB_URL": "mongodb+srv://dhanushkumar:fIi5wSYfxKvq8w5o@dhanushstoreecommerce.2w1vrwt.mongodb.net/dhanushEcommerce?retryWrites=true&w=majority"
+      "MONGODB_URL": "mongodb+srv://dhanushkumar:fIi5wSYfxKvq8w5o@dhanushstoreecommerce.2w1vrwt.mongodb.net/dhanushEcommerce?retryWrites=true&w=majority"
     }
   }
   
